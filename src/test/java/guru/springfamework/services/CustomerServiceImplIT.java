@@ -1,0 +1,65 @@
+package guru.springfamework.services;
+
+import guru.springfamework.api.v1.mapper.CustomerMapper;
+import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.bootstrap.Bootstrap;
+import guru.springfamework.domain.Customer;
+import guru.springfamework.repositories.CategoryRepository;
+import guru.springfamework.repositories.CustomerRepository;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.assertEquals;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class CustomerServiceImplIT {
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
+
+    CustomerService customerService;
+
+    @Before
+    public void setUp() throws Exception {
+        Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+        bootstrap.run();
+
+        customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE, customerRepository);
+    }
+
+    @Test
+    public void patchCustomerUpdateFirstName() throws Exception {
+        Customer customer = customerRepository.findAll().get(0);
+        String newFirstName = customer.getFirstName() + "_new";
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName(newFirstName);
+
+        CustomerDTO patchedCustomerDTO = customerService.patchCustomer(customer.getId(), customerDTO);
+
+        assertEquals(newFirstName, patchedCustomerDTO.getFirstName());
+        assertEquals(customer.getLastName(), patchedCustomerDTO.getLastName());
+    }
+
+    @Test
+    public void patchCustomerUpdateLastName() throws Exception {
+        Customer customer = customerRepository.findAll().get(0);
+        String newLastName = customer.getLastName() + "_new";
+
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setLastName(newLastName);
+
+        CustomerDTO patchedCustomerDTO = customerService.patchCustomer(customer.getId(), customerDTO);
+
+        assertEquals(customer.getFirstName(), patchedCustomerDTO.getFirstName());
+        assertEquals(newLastName, patchedCustomerDTO.getLastName());
+    }
+}

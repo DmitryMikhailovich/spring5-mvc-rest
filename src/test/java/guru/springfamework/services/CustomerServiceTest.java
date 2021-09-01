@@ -103,4 +103,26 @@ public class CustomerServiceTest {
         assertNotEquals(customerDTO, savedCustomerDTO);
         assertEquals("/api/v1/customers/" + ID.intValue(), savedCustomerDTO.getCustomerUrl());
     }
+
+    @Test
+    public void patchCustomer() {
+        Customer customer = new Customer();
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName(FIRST_NAME);
+        customerDTO.setLastName(null);
+
+        Customer updatedCustomer = new Customer();
+        updatedCustomer.setId(ID);
+        updatedCustomer.setFirstName(FIRST_NAME);
+
+        when(customerRepository.getOne(anyLong())).thenReturn(customer);
+        when(customerRepository.save(any())).thenReturn(updatedCustomer);
+
+        CustomerDTO patchedCustomerDTO = customerService.patchCustomer(ID, customerDTO);
+
+        assertNotNull(patchedCustomerDTO);
+        assertNotEquals(customerDTO, patchedCustomerDTO);
+        assertEquals(FIRST_NAME, patchedCustomerDTO.getFirstName());
+        assertEquals("/api/v1/customers/" + ID.intValue(), patchedCustomerDTO.getCustomerUrl());
+    }
 }
