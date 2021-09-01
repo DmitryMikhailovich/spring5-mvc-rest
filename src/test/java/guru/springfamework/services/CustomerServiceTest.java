@@ -2,6 +2,7 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 import org.junit.Before;
@@ -83,7 +84,7 @@ public class CustomerServiceTest {
 
         assertNotNull(newCustomerDTO);
         assertNotEquals(customerDTO, newCustomerDTO);
-        assertEquals("/api/v1/customers/" + ID.intValue(), newCustomerDTO.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/" + ID.intValue(), newCustomerDTO.getCustomerUrl());
     }
 
     @Test
@@ -101,7 +102,7 @@ public class CustomerServiceTest {
 
         assertNotNull(savedCustomerDTO);
         assertNotEquals(customerDTO, savedCustomerDTO);
-        assertEquals("/api/v1/customers/" + ID.intValue(), savedCustomerDTO.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/" + ID.intValue(), savedCustomerDTO.getCustomerUrl());
     }
 
     @Test
@@ -123,6 +124,6 @@ public class CustomerServiceTest {
         assertNotNull(patchedCustomerDTO);
         assertNotEquals(customerDTO, patchedCustomerDTO);
         assertEquals(FIRST_NAME, patchedCustomerDTO.getFirstName());
-        assertEquals("/api/v1/customers/" + ID.intValue(), patchedCustomerDTO.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/" + ID.intValue(), patchedCustomerDTO.getCustomerUrl());
     }
 }
