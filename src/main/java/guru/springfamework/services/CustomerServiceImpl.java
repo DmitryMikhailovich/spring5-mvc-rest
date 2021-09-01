@@ -30,4 +30,13 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         return customerOptional.map(customer -> customerMapper.customerToCustomerDTO(customer)).orElse(null);
     }
+
+    @Override
+    public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+        Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return customerMapper.customerToCustomerDTO(savedCustomer);
+    }
 }

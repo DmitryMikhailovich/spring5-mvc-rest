@@ -13,4 +13,6 @@ public interface CustomerMapper {
 
     @Mapping(target = "customerUrl", expression = "java( \"/api/v1/customers/\" + customer.getId() )")
     CustomerDTO customerToCustomerDTO(Customer customer);
+
+    Customer customerDTOToCustomer(CustomerDTO customerDTO);
 }
