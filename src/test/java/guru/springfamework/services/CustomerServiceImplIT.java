@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -61,5 +63,16 @@ public class CustomerServiceImplIT {
 
         assertEquals(customer.getFirstName(), patchedCustomerDTO.getFirstName());
         assertEquals(newLastName, patchedCustomerDTO.getLastName());
+    }
+
+    @Test
+    public void deleteCustomer() throws Exception {
+        Customer customer = customerRepository.findAll().get(0);
+
+        customerService.deleteCustomerById(customer.getId());
+
+        Optional<Customer> deletedCustomerOptional = customerRepository.findById(customer.getId());
+
+        assertFalse(deletedCustomerOptional.isPresent());
     }
 }

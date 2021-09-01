@@ -39,6 +39,12 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.patchCustomer(id, customerDTO), HttpStatus.OK);
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+        customerService.deleteCustomerById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);

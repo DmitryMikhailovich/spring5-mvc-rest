@@ -143,4 +143,11 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.firstname", is(FIRST_NAME)))
                 .andExpect(jsonPath("$.customer_url", is("url")));
     }
+
+    @Test
+    public void deleteCustomer() throws Exception {
+        mockMvc.perform(delete("/api/v1/customers/" + ID.intValue())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
