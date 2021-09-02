@@ -17,8 +17,8 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService categoryService) {
-        this.customerService = categoryService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping
