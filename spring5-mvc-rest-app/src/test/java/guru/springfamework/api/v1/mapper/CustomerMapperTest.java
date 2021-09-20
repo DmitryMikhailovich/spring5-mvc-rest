@@ -1,8 +1,8 @@
 package guru.springfamework.api.v1.mapper;
 
-import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
+import guru.springfamework.model.CustomerDTO;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

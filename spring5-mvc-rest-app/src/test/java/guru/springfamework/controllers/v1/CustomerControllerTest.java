@@ -1,6 +1,6 @@
 package guru.springfamework.controllers.v1;
 
-import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.model.CustomerDTO;
 import guru.springfamework.services.CustomerService;
 import guru.springfamework.services.ResourceNotFoundException;
 import org.junit.Before;
@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -79,9 +78,9 @@ public class CustomerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(ID.intValue())))
-                .andExpect(jsonPath("$.firstname", is(FIRST_NAME)))
-                .andExpect(jsonPath("$.lastname", is(LAST_NAME)))
-                .andExpect(jsonPath("$.customer_url", is("url")));
+                .andExpect(jsonPath("$.firstName", is(FIRST_NAME)))
+                .andExpect(jsonPath("$.lastName", is(LAST_NAME)))
+                .andExpect(jsonPath("$.customerUrl", is("url")));
     }
 
     @Test
@@ -114,7 +113,7 @@ public class CustomerControllerTest {
                         .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(ID.intValue())))
-                .andExpect(jsonPath("$.customer_url", is("url")));
+                .andExpect(jsonPath("$.customerUrl", is("url")));
     }
 
     @Test
@@ -136,7 +135,7 @@ public class CustomerControllerTest {
                         .content(asJsonString(customer)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(ID.intValue())))
-                .andExpect(jsonPath("$.customer_url", is("url")));
+                .andExpect(jsonPath("$.customerUrl", is("url")));
     }
 
     @Test
@@ -159,8 +158,8 @@ public class CustomerControllerTest {
                         .content(asJsonString(customer)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(ID.intValue())))
-                .andExpect(jsonPath("$.firstname", is(FIRST_NAME)))
-                .andExpect(jsonPath("$.customer_url", is("url")));
+                .andExpect(jsonPath("$.firstName", is(FIRST_NAME)))
+                .andExpect(jsonPath("$.customerUrl", is("url")));
     }
 
     @Test
